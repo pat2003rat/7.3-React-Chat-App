@@ -58,7 +58,7 @@ var MessagesContainer = React.createClass({
         <div className="row">
           <div className='col-md-12'>
             <input onChange={this.handleMessageChange} value={this.state.message} type="text" className="form-control" id="message" placeholder="Message" />
-            <button onClick={this.addChatMessage}> Click to Post</button>
+            <button onClick={this.addChatMessage}> Click to Post</button></div>
             <MessagesList username={this.props.username} messages={this.state.messageCollection}/>
           </div>
         </div>
@@ -73,7 +73,8 @@ var MessagesList = React.createClass({
     var messages = this.props.messages.map(function(message){
       return(
         <li key={message.cid}>
-          <span>{message.get('username')}</span>
+          <span className="time">{message.get('timestamp')}:</span>
+          <span>{message.get('username')}:</span>
           <span>{message.get('message')}</span>
         </li>
       )
@@ -106,16 +107,21 @@ var MessagesList = React.createClass({
     },
     render(){
       return(
+        <div>
+        <div className="chatroom">
+             <h3 className="chatroomheader" > Welcome to Patrick's Chatroom </h3>
+        </div>
         <div className="col-xs-12 col-md-6">
           <div className ="userinformation">
             <form onSubmit={this.saveUsername}>
               <div className = "form-group">
-                <label id="username-labeller" htmlFor="username"> Username: </label>
+                <label id="usernamelabel" htmlFor="username"> Username: </label>
               <input onChange={this.handleUsername} value={ this.state.username } type="text" name="" placeholder="enter username" />
               </div>
               <input id="create-button" type="submit" className="btn btn-info" value="Next"/>
           </form>
           </div>
+        </div>
         </div>
       )
     }
