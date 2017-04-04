@@ -36,14 +36,32 @@ input{
 }
 
 .chatroom-messages {
-  height: 240px;
+  height: 300px;
+  width: 80%;
   overflow: scroll;
   background-color: white;
   border: 1px solid #777;
-  box-shadow: inset 0px 0px 7px 2px #D2691E;
   padding: 10px 0;
   border-radius: 5px;
   li {
     margin: .5em 0;
   }
+}
+
+.typingmessage {
+    padding-top: 50px;
+    padding-bottom: 10px;
+
+}
+
+.usernamemessages{
+  color: red;
+}
+
+.messagemessages {
+  color: blue;
+}
+
+.time {
+  color: gray;
 }

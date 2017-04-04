@@ -1,4 +1,7 @@
 var React = require('react');
+var moment = require('moment');
+var Backbone = require('backbone');
+
 
 var models = require('../models/message');
 
@@ -57,9 +60,10 @@ var MessagesContainer = React.createClass({
       <div>
       <div className='container'>
         <div className="row">
-          <div className='col-md-12'>
+          <div className='col-md-12 typingmessage'> <h1>Let's Chat</h1>
             <input onChange={this.handleMessageChange} value={this.state.message} type="text" className="form-control" id="message" placeholder="Message" />
-            <button onClick={this.addChatMessage}> Click to Post</button></div>
+            <br></br>
+            <button className = "btn btn-success" onClick={this.addChatMessage}> Click to Post</button></div>
               <div className="chatroom-messages">
             <MessagesList username={this.props.username} messages={this.state.messageCollection}/>
             </div>
@@ -76,9 +80,12 @@ var MessagesList = React.createClass({
     var messages = this.props.messages.map(function(message){
       return(
         <li key={message.cid}>
-          <span className="time">{message.get('timestamp')}:</span>
-          <span>{message.get('username')}:</span>
-          <span>{message.get('message')}</span>
+          <span className="usernamemessages"> Username: {message.get('username')}</span>
+          <br></br>
+          <span className = "messagemessages">Message: {message.get('message')}</span>
+            <br></br>
+            <span className="time">Time: {message.get('timestamp')} </span>
+
         </li>
       )
     });
