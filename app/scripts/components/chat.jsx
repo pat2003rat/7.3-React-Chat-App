@@ -54,13 +54,16 @@ var MessagesContainer = React.createClass({
 
   render() {
     return(
+      <div>
       <div className='container'>
         <div className="row">
           <div className='col-md-12'>
             <input onChange={this.handleMessageChange} value={this.state.message} type="text" className="form-control" id="message" placeholder="Message" />
             <button onClick={this.addChatMessage}> Click to Post</button></div>
+              <div className="chatroom-messages">
             <MessagesList username={this.props.username} messages={this.state.messageCollection}/>
-          </div>
+            </div>
+        </div>
         </div>
       </div>
     )
