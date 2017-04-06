@@ -18,14 +18,12 @@ var MessagesContainer = React.createClass({
       messageCollection
     };
   },
-
   getMessages: function(event){
     var messageCollection = this.state.messageCollection;
     messageCollection.fetch().done(() => {
       this.setState({ messageCollection: messageCollection })
     });
   },
-
   handleMessageChange: function(event) {
     this.setState({ message: event.target.value });
   },
@@ -37,7 +35,7 @@ var MessagesContainer = React.createClass({
     // model.set(attributes, [options]); Set a hash of attributes (one or many) on the model.
     // do not have to set username; it is set when model is instantiated
     message.set({
-      timestamp: new Date(),
+      timestamp: (new Date()).toString(),
       message: this.state.message
     });
 
@@ -50,24 +48,24 @@ var MessagesContainer = React.createClass({
     // add message to messasgeCollection at index 0 (first object in the array)
     // message will appear under message input once user clicks 'Click to Post'
     messageCollection.add(message, { at: 0 });
-    this.setState({ messageCollection })
-
+    console.log('this is logging here', typeof message.get('timestamp'));
+    this.setState({ messageCollection });
 },
-
-
   render() {
     return(
       <div>
-      <div className='container'>
-        <div className="row">
-          <div className='col-md-12 typingmessage'> <h1>Let's Chat</h1>
-            <input onChange={this.handleMessageChange} value={this.state.message} type="text" className="form-control" id="message" placeholder="Message" />
-            <br></br>
-            <button className = "btn btn-success" onClick={this.addChatMessage}> Click to Post</button></div>
-              <div className="chatroom-messages">
-            <MessagesList username={this.props.username} messages={this.state.messageCollection}/>
+        <div className='container'>
+          <div className="row">
+            <div className='col-md-12 typingmessage'>
+              <h1>Let's Chat</h1>
+              <input onChange={this.handleMessageChange} value={this.state.message} type="text" className="form-control" id="message" placeholder="Message" />
+              <br></br>
+              <button className = "btn btn-success" onClick={this.addChatMessage}> Click to Post</button>
             </div>
-        </div>
+            <div className="chatroom-messages">
+              <MessagesList username={this.props.username} messages={this.state.messageCollection}/>
+            </div>
+          </div>
         </div>
       </div>
     )
@@ -78,16 +76,16 @@ var MessagesList = React.createClass({
 
   render(){
     var messages = this.props.messages.map(function(message){
-      return(
-        <li key={message.cid}>
-          <span className="usernamemessages"> Username: {message.get('username')}</span>
-          <br></br>
-          <span className = "messagemessages">Message: {message.get('message')}</span>
+      // need to use {} to embed as JS and allow entire moment() to be read as JS not HTML //
+        return(
+          <li key={message.cid}>
+            <span className="usernamemessages"> Username: {message.get('username')}</span>
             <br></br>
-            <span className="time">Time: {message.get('timestamp')} </span>
-
-        </li>
-      )
+            <span className="messagemessages">Message: {message.get('message')}</span>
+            <br></br>
+            <span className="messagemessages">Time: { moment(message.get('timestamp')).format('MMM Do YYYY, hh:mm a') }</span>
+          </li>
+        )
     });
     return(
       <div>
